@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27825.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "ChocolateyServer", "ChocolateyServer\ChocolateyServer.deployproj", "{18238783-7569-4C42-85CB-EF19BFABF1EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18238783-7569-4C42-85CB-EF19BFABF1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18238783-7569-4C42-85CB-EF19BFABF1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18238783-7569-4C42-85CB-EF19BFABF1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18238783-7569-4C42-85CB-EF19BFABF1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D120CED-A82C-4B05-A13B-B2FED003731D}
+	EndGlobalSection
+EndGlobal
