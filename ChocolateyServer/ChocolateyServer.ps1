@@ -1,6 +1,6 @@
 Configuration ChocolateyServer
 {
-    Import-DscResource –ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
 
     WindowsFeature IIS
     {

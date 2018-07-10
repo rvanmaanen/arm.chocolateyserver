@@ -22,14 +22,11 @@
         "description": "Globally unique DNS Name for the Public IP used to access the Virtual Machine."
       }
     },
-    "windowsOSVersion": {
+    "AllowRdpFromThisIpAddress": {
       "type": "string",
-      "defaultValue": "2016-Datacenter",
-      "allowedValues": [
-        "2016-Datacenter"
-      ],
+      "minLength": 1,
       "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2016-Datacenter."
+        "description": "RDP connections will be allowed from this IP address"
       }
     }
   },
@@ -154,12 +151,12 @@
       "properties": {
         "securityRules": [
           {
-            "name": "RdpFromXpirit",
+            "name": "Rdp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
-              "sourceAddressPrefix": "37.17.208.21",
+              "sourceAddressPrefix": "[parameters('AllowRdpFromThisIpAddress')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
@@ -280,7 +277,7 @@
           "imageReference": {
             "publisher": "[variables('imagePublisher')]",
             "offer": "[variables('imageOffer')]",
-            "sku": "[parameters('windowsOSVersion')]",
+            "sku": "2016-Datacenter",
             "version": "latest"
           },
           "osDisk": {

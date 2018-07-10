@@ -6,10 +6,13 @@
       "value": "xpirit"
     },
     "dnsNameForPublicIP": {
-      "value": "chocolateyserver-xpirit2"
+      "value": "chocolateyserver-xpirit"
     },
     "adminPassword": {
       "value": "Xpirit123"
+    },
+    "AllowRdpFromThisIpAddress": {
+      "value": "37.17.208.21"
     }
   }
 }
