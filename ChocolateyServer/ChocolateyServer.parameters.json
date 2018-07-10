@@ -11,7 +11,7 @@
     "adminPassword": {
       "value": "Xpirit123"
     },
-    "AllowRdpFromThisIpAddress": {
+    "allowRdpFromThisIpAddress": {
       "value": "37.17.208.21"
     }
   }
