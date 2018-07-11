@@ -26,7 +26,7 @@
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
-    <Content Include="ChocolateyServer.ps1" />
+    <Content Include="DSC\ChocolateyServer.ps1" />
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="ChocolateyServer.json" />
     <Content Include="ChocolateyServer.parameters.json" />
