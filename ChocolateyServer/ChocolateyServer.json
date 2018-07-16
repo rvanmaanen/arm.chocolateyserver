@@ -43,16 +43,14 @@
     "publicIPAddressName": "ChocServPublicIP",
     "publicIPAddressType": "Dynamic",
     "vhdStorageContainerName": "vhds",
-    "vmName": "ChocServWindowsVM",
+    "vmName": "ChocoServer",
     "vmExtensionName": "dscExtension",
     "vmSize": "Standard_A2_v2",
     "virtualNetworkName": "ChocServVNET",
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "vhdStorageAccountName": "[concat('vhdstorage', uniqueString(resourceGroup().id))]",
-    "diagnosticsStorageAccountName": "[variables('vhdStorageAccountName')]",
-    "wadmetricsresourceid": "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
-    "modulesUrl": "https://github.com/todo.zip",
+    "modulesUrl": "https://github.com/rajbos/arm.chocolateyserver/blob/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
     "configurationFunction": "ChocolateyServer.ps1\\ChocolateyServer"
   },
   "resources": [
@@ -160,6 +158,19 @@
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Web",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "[parameters('allowRdpFromThisIpAddress')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
               "direction": "Inbound"
             }
           }
