@@ -43,7 +43,7 @@
     "publicIPAddressName": "ChocServPublicIP",
     "publicIPAddressType": "Dynamic",
     "vhdStorageContainerName": "vhds",
-    "vmName": "ChocServWindowsVM",
+    "vmName": "ChocoServer",
     "vmExtensionName": "dscExtension",
     "vmSize": "Standard_A2_v2",
     "virtualNetworkName": "ChocServVNET",
