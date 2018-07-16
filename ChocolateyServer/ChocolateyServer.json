@@ -50,7 +50,7 @@
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "vhdStorageAccountName": "[concat('vhdstorage', uniqueString(resourceGroup().id))]",
-    "modulesUrl": "https://github.com/todo.zip",
+    "modulesUrl": "https://github.com/rajbos/arm.chocolateyserver/blob/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
     "configurationFunction": "ChocolateyServer.ps1\\ChocolateyServer"
   },
   "resources": [
