@@ -43,15 +43,16 @@
     "publicIPAddressName": "ChocServPublicIP",
     "publicIPAddressType": "Dynamic",
     "vhdStorageContainerName": "vhds",
-    "vmName": "ChocoServer",
+    "vmName": "ChocServ",
     "vmExtensionName": "dscExtension",
     "vmSize": "Standard_A2_v2",
     "virtualNetworkName": "ChocServVNET",
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
-    "vhdStorageAccountName": "[concat('vhdstorage', uniqueString(resourceGroup().id))]",
-    "modulesUrl": "https://github.com/rajbos/arm.chocolateyserver/blob/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
-    "configurationFunction": "ChocolateyServer.ps1\\ChocolateyServer"
+    "vhdStorageAccountName": "ChocServVhdStorage",
+    "modulesUrl": "https://github.com/rvanmaanen/arm.chocolateyserver/raw/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
+    "configurationFunction": "ChocolateyServer.01.ps1\\ChocolateyServer",
+    "configurationFunction2": "ChocolateyServer.02.ps1\\ChocolateyServer"
   },
   "resources": [
     {
@@ -318,7 +319,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "tags": {
-        "displayName": "PowershellDscExtension"
+        "displayName": "PowershellDscExtension_WindowsFeatures"
       },
       "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
       "apiVersion": "2015-05-01-preview",
@@ -332,13 +333,33 @@
         "typeHandlerVersion": "2.19",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "ModulesUrl": "[variables('modulesUrl')]",
-          "ConfigurationFunction": "[variables('configurationFunction')]",
-          "Properties": {
-            "MachineName": "[variables('vmName')]"
-          }
+          "modulesUrl": "[variables('modulesUrl')]",
+          "configurationFunction": "[variables('configurationFunction')]"
         },
-        "protectedSettings": null
+        "protectedSettings": {}
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "tags": {
+        "displayName": "PowershellDscExtension_ChocolateyServer"
+      },
+      "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "modulesUrl": "[variables('modulesUrl')]",
+          "configurationFunction": "[variables('configurationFunction2')]"
+        },
+        "protectedSettings": {}
       }
     }
   ]

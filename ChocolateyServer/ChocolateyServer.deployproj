@@ -30,6 +30,9 @@
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="ChocolateyServer.json" />
     <Content Include="ChocolateyServer.parameters.json" />
+    <None Include="DSC\ChocolateyServer.01.ps1" />
+    <None Include="DSC\ChocolateyServer.02.ps1" />
+    <None Include="DSC\ChocolateyServer.zip" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
