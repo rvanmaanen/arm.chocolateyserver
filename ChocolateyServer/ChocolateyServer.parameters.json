@@ -5,14 +5,11 @@
     "adminUsername": {
       "value": "xpirit"
     },
-    "dnsNameForPublicIP": {
-      "value": "chocolateyserver-xpirit"
-    },
     "adminPassword": {
       "value": "Xpirit_123!"
     },
-    "allowRdpFromThisIpAddress": {
-      "value": "37.17.208.21"
+    "dnsNameForPublicIP": {
+      "value": "chocolateyserver-xpirit"
     }
   }
 }

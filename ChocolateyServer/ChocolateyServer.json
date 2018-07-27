@@ -49,10 +49,10 @@
     "virtualNetworkName": "ChocServVNET",
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
-    "vhdStorageAccountName": "ChocServVhdStorage",
+    "vhdStorageAccountName": "chocservvhdstorage",
     "modulesUrl": "https://github.com/rvanmaanen/arm.chocolateyserver/raw/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
     "configurationFunction": "ChocolateyServer.01.ps1\\ChocolateyServer",
-    "configurationFunction2": "ChocolateyServer.02.ps1\\ChocolateyServer"
+    "scriptFileName": "https://github.com/rvanmaanen/arm.chocolateyserver/raw/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1?raw=true"
   },
   "resources": [
     {
@@ -319,9 +319,9 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "tags": {
-        "displayName": "PowershellDscExtension_WindowsFeatures"
+        "displayName": "PowershellDscExtension"
       },
-      "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
+      "name": "[concat(variables('vmName'),'/PowershellDscExtension')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "dependsOn": [
@@ -342,24 +342,26 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "tags": {
-        "displayName": "PowershellDscExtension_ChocolateyServer"
+        "displayName": "CustomScriptExtension"
       },
-      "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
-      "apiVersion": "2015-05-01-preview",
+      "name": "[concat(variables('vmName'),'/CustomScriptExtension')]",
+      "apiVersion": "2017-03-30",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+        "[concat(variables('vmName'),'/PowershellDscExtension')]"
       ],
       "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.19",
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.8",
         "autoUpgradeMinorVersion": true,
+        "protectedSettings": {},
         "settings": {
-          "modulesUrl": "[variables('modulesUrl')]",
-          "configurationFunction": "[variables('configurationFunction2')]"
-        },
-        "protectedSettings": {}
+          "fileUris": [
+            "https://raw.githubusercontent.com/rvanmaanen/arm.chocolateyserver/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1"
+          ],
+          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File rvanmaanen/arm.chocolateyserver/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1"
+        }
       }
     }
   ]

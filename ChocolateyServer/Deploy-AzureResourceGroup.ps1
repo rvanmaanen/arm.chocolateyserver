@@ -10,6 +10,7 @@ Param(
     [string] $TemplateParametersFile = 'ChocolateyServer.parameters.json',
     [string] $ArtifactStagingDirectory = '.',
     [string] $DSCSourceFolder = 'DSC',
+	[string] $allowRdpFromThisIpAddress,
     [switch] $ValidateOnly
 )
 
@@ -105,10 +106,17 @@ if ($ValidateOnly) {
     }
 }
 else {
+	if(!$allowRdpFromThisIpAddress)
+	{
+		Write-Output '', 'Parameter allowRdpFromThisIpAddress wasnt provided a value. Whitelisting current IP in firewall to allow RDP & HTTP access to VM.'
+		$allowRdpFromThisIpAddress = Invoke-RestMethod http://ipinfo.io/json | Select -exp ip
+	}
+
     New-AzureRmResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                        -ResourceGroupName $ResourceGroupName `
                                        -TemplateFile $TemplateFile `
                                        -TemplateParameterFile $TemplateParametersFile `
+									   -allowRdpFromThisIpAddress $allowRdpFromThisIpAddress `
                                        @OptionalParameters `
                                        -Force -Verbose `
                                        -ErrorVariable ErrorMessages
