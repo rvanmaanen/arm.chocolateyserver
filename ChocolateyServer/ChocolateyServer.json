@@ -51,7 +51,7 @@
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "vhdStorageAccountName": "chocservvhdstorage",
     "modulesUrl": "https://github.com/rvanmaanen/arm.chocolateyserver/raw/master/ChocolateyServer/DSC/ChocolateyServer.zip?raw=true",
-    "configurationFunction": "ChocolateyServer.01.ps1\\ChocolateyServer",
+    "configurationFunction": "ChocolateyServer.01.ps1\\WindowsFeatures",
     "scriptFileName": "https://github.com/rvanmaanen/arm.chocolateyserver/raw/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1?raw=true"
   },
   "resources": [
@@ -348,7 +348,7 @@
       "apiVersion": "2017-03-30",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat(variables('vmName'),'/PowershellDscExtension')]"
+        "[concat('Microsoft.Compute/virtualMachines/', concat(variables('vmName'),'/extensions/PowershellDscExtension'))]"
       ],
       "properties": {
         "publisher": "Microsoft.Compute",
@@ -360,7 +360,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/rvanmaanen/arm.chocolateyserver/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1"
           ],
-          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File rvanmaanen/arm.chocolateyserver/master/ChocolateyServer/DSC/ChocolateyServer.02.ps1"
+          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File ChocolateyServer.02.ps1"
         }
       }
     }
